@@ -5,19 +5,20 @@ n = int(input())
 INF = 10e9
 
 #초기 max_graph, min_graph 만들기
-max_graph = [[-INF,0,0,0,-INF] for _ in range(n)]
-min_graph = [[INF,0,0,0,INF] for _ in range(n)]
+max_dp = [-INF, 0, 0, 0, -INF]
+min_dp = [INF, 0, 0, 0, INF]
 
-for i in range(n):
-    a, b, c = map(int,input().split())
-    max_graph[i][1], max_graph[i][2], max_graph[i][3] = a, b, c
-    min_graph[i][1], min_graph[i][2], min_graph[i][3] = a, b, c
+max_tmp = [-INF, 0, 0, 0, -INF]
+min_tmp = [INF, 0, 0, 0, INF]
 
+for _ in range(n):
+    X = list(map(int,input().split()))
+    for i in range(1,4):
+        max_tmp[i] = X[i-1] + max(max_dp[i-1], max_dp[i], max_dp[i+1])
+        min_tmp[i] = X[i-1] + min(min_dp[i-1], min_dp[i], min_dp[i+1])
+    
+    for i in range(1,4):
+        max_dp[i] = max_tmp[i]
+        min_dp[i] = min_tmp[i]
 
-
-for i in range(1,n):
-    for j in range(1,4):
-        max_graph[i][j] = max(max_graph[i][j]+max_graph[i-1][j-1], max_graph[i][j]+max_graph[i-1][j], max_graph[i][j]+max_graph[i-1][j+1])
-        min_graph[i][j] = min(min_graph[i][j]+min_graph[i-1][j-1], min_graph[i][j]+min_graph[i-1][j], min_graph[i][j]+min_graph[i-1][j+1])
-
-print(max(max_graph[-1]), min(min_graph[-1]))
+print(max(max_dp[1:4]), min(min_dp[1:4]))
