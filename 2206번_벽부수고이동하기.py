@@ -39,13 +39,13 @@ def bfs(x, y, z):
             if graph[nx][ny] == 1 and c == 0 : # 다음 이동할 곳이 벽이고, 벽 파괴술을 아직 안썼다면
                 visited[nx][ny][1] = visited[a][b][0] + 1 
                 queue.append((nx, ny, 1))
-                
-            elif graph[nx][ny] == 0 and visited[nx][ny][c] == 0 : 
+
+            elif graph[nx][ny] == 0 and visited[nx][ny][c] == 0 :
                 visited[nx][ny][c] = visited[a][b][c] + 1 
                 queue.append((nx, ny, c))
     return -1
 
-#print(bfs(0, 0, 0))
+print(bfs(0, 0, 0))
 
 
             
